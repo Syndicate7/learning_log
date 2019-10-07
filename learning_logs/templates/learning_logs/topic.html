@@ -1,0 +1,41 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block header %}
+</br>
+<h2><a href="{% url 'learning_logs:topics' %}"><i class='far fa-folder' style='color:black'></i></a>
+<span class="glyphicon glyphicon-console"> {{ topic }}</span></h2>
+  <div class="text-right">
+  <a href="{% url 'learning_logs:new_entry' topic.id %}">
+  <button type="button" class="btn btn-outline-dark"><i class='fas fa-plus'></i> Add new entry</button>
+  </a>
+  </div>
+  </br>
+
+{% endblock header %}
+
+{% block content %}
+
+{% for entry in entries %}
+  <div class="card">
+      <h5 class="card-header bg-dark text-white">
+        {{ entry.title }}
+      </h5>
+
+    <div class="card-body">
+      {{ entry.text|linebreaks }}
+    </div>
+
+    <div class="card-footer text-muted">
+      <div class="text-right">
+      Post created:
+      {{ entry.date_added|date:'M d, Y H:i' }}
+      <a href="{% url 'learning_logs:edit_entry' entry.id %}"><span class="glyphicon glyphicon-edit"></span>Edit entry</a>
+      </div>
+    </div>
+  </div><!-- panel -->
+  </br>
+{% empty %}
+  There are no entries for this topic yet.
+{% endfor %}
+
+{% endblock content %}

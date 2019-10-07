@@ -1,0 +1,16 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+<p>
+<a href="{% url 'learning_logs:subtheme' entry.id %}"><button type="button" class="btn btn-danger">{{ entry }}</button></a>
+</p>
+
+<p>Add a new entry:</p>
+<form action="{% url 'learning_logs:subtheme' entry.id %}" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button name="submit">Add subtheme</button>
+</form>
+
+{% endblock content %}

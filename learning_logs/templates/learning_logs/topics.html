@@ -1,0 +1,50 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block header %}
+</br>
+	<h2><i class="glyphicon glyphicon-folder-close"> Topics</i></h2>
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="text-right">
+	<a href="{% url 'learning_logs:new_topic' %}">
+	<button type="button" class="btn btn-outline-dark"><i class='fas fa-plus'></i> Add new topic</button>
+	</a>
+</div>
+</br>
+
+<input class="form-control" id="myInput" type="text" placeholder="Search...">
+  <br>
+
+<div class="text-center list-group" id="myList">
+{% for topic in topics %}
+		<a href="{% url 'learning_logs:topic' topic.id %}" class="list-group-item list-group-item-action list-group-item-light text-dark">
+		{{ topic }}
+		</a>
+{% empty %}
+<li>No topics have been added yet.</li>
+{% endfor %}
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList a").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+{% endblock content %}
